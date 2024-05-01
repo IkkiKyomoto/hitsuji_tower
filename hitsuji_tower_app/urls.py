@@ -4,6 +4,6 @@ from . import views
 
 # urls.py
 urlpatterns = [
-    path("example/", views.example_view, name="example"),
+    path("", views.index_template, name="index_template"),
     # Add more paths here
-] + staticfiles_urlpatterns()
+]

@@ -1,7 +1,6 @@
 from django.shortcuts import render
-from django.http import HttpResponse
 
 
 # Create your views here.
-def example_view(request):
-    return HttpResponse("Hello, world. You're at the example view.")
+def index_template(request):
+    return render(request, "hitsuji_tower_app/index.html")
