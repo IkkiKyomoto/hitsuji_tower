@@ -1,13 +1,5 @@
-import sys
-
-sys.path.append("../")
-
-from conf import conf
-from composer import Composer
+from .composer import Composer
 from random import randint
-
-
-conf = conf.conf
 
 
 class Map_prototype:
@@ -40,7 +32,7 @@ class Room_prototype:
     def __init__(self, room_height, room_width, kind, pos_x, pos_y):
         self.height = room_height
         self.width = room_width
-        self.variety = kind
+        self.kind = kind
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.room = self.room_init()
@@ -57,18 +49,7 @@ class Room_prototype:
         return room
 
 
-def prototype():
+def prototype(conf):
     map = Map_prototype(conf)
-    print(
-        [
-            map.rooms.rooms[i][j].room
-            for i in range(map.height)
-            for j in range(map.width)
-        ]
-    )
-    print(len(map.rooms.rooms))
 
     return map
-
-
-prototype()

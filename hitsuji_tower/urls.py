@@ -22,4 +22,5 @@ from django.urls.conf import include
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("hitsuji_tower_app.urls")),
+    path("map/", include("hitsuji_tower_map_api.urls")),
 ]
