@@ -8,7 +8,8 @@ game.config = {
         result: "結果"
     },
     tileSize: 50, // 各マスの大きさ(px)
-    playerSize:50 // プレイヤーの大きさ(px)
+    playerSize:100 // プレイヤーの大きさ(px)
+
 };
 
 game.data = {
@@ -16,9 +17,14 @@ game.data = {
     scene: null, // タイトル画面
     clickPos: [],
     inputKey: new Set(),
-    map: null,
-    playerPos: [0, 0],
-    objects: {},
+    map: null,  // mapの情報
+    objects: {}, // 画面上に配置するオブジェクト
+    result: {
+        // リザルト画面に表示する項目
+        time: 0, // クリアタイム
+        score: 0, // スコア
+        blockBreak: 0, // 破壊したブロック数
+    }
 };
 
 // マウスクリック イベントリスナー
@@ -58,8 +64,12 @@ function init(){
 function gameloop(){
     switch(game.data.scene){
         case game.config.scenes.title:
-            titleUpdate();
             titleDraw();
+            titleUpdate();
+            break
+        case game.config.scenes.game:
+            gameDraw();
+            gameUpdate();
             break
     }
 };

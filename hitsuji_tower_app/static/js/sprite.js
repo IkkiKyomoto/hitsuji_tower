@@ -60,3 +60,17 @@ class Button extends Sprite{
         }
     }
 }
+
+class Player extends Sprite{
+    constructor(canvasX, canvasY, mapX, mapY, width, height){
+        // canvasX,Y : canvas上での座標
+        // mapX,Y : map上での座標
+        super(canvasX, canvasY, width, height);
+        
+        this.draw = function(){   
+            createRoundRectPath(this.posX, this.posY, this.width, this.height, 20);
+            game.data.context.fillStyle = "#fff";
+            game.data.context.fill();
+        }; 
+    }
+}
