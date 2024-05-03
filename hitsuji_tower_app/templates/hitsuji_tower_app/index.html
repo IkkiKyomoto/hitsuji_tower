@@ -8,10 +8,14 @@
   </head>
   <body>
     {% block content %}
-    <div id="app">ここにフロントエンドを記述していってください</div>
+    <canvas id="gamecanvas" width="720" height="480"></canvas>
     <!-- Your HTML content goes here -->
     {% endblock %}
     <!-- JavaScriptファイルの読み込み -->
     <script src="{% static 'js/index.js' %}"></script>
+    <script src="{% static 'js/sprite.js' %}"></script>
+    <script src="{% static 'js/scenes.js' %}"></script>
+    <script src="{% static 'js/tools.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
   </body>
 </html>
