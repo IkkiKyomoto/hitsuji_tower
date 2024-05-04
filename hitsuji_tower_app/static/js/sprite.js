@@ -8,18 +8,10 @@ class Sprite{
 	}
 }
 
-class Map{
-    constructor(mapdata){
-        this.height = mapdata.length;
-        this.width = mapdata[0].length;
-        this.ids = structuredClone(mapdata); // 複製
-    }
-}
-
 class ImageBox extends Sprite{
     constructor(posX, posY, width, height, src){
         super(posX, posY, width, height);
-
+        
         this.img = new Image();
         this.img.src = src;
         this.draw = function(){
