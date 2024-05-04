@@ -17,6 +17,8 @@ class Rooms_prototype:
         self.variety = conf["variety"]
         self.rooms = self.create(map_height, map_width)
         self.composer = Composer(conf, self.rooms)
+
+        # ここにコンポーザーを登録
         self.rooms = self.composer.connect()
 
     def create(self, map_height, map_width):
@@ -24,7 +26,11 @@ class Rooms_prototype:
         for i in range(map_height):
             for j in range(map_width):
                 kind = randint(1, self.variety)
-                rooms[i][j] = Room_prototype(self.height, self.width, kind, i, j)
+                rooms[i][j] = Room_prototype(self.height, self.width, kind, j, i)
+                # if i == 0 and j == 0:
+                #     rooms[i][j].room[1][1] = "S"
+                # elif i == map_height - 1 and j == map_width - 1:
+                #     rooms[i][j].room[1][self.width - 1] = "G"
         return rooms
 
 
@@ -36,6 +42,8 @@ class Room_prototype:
         self.pos_x = pos_x
         self.pos_y = pos_y
         self.room = self.room_init()
+        self.start = None
+        self.end = None
 
     def room_init(self):
         room = [None for _ in range(self.height)]
