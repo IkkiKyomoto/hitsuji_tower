@@ -15,10 +15,8 @@ function createRoundRectPath(posX, posY, width, height, radius){
 }
 
 function mapConversion(data){
-    // let map_height = data[0]["map_height"];
-    // let map_width = data[0]["map_width"];
-    let map_width = data[0]["map_height"];
-    let map_height= data[0]["map_width"];
+    let map_height = data[0]["map_height"];
+    let map_width = data[0]["map_width"];
 
     let height = data[0]["rooms"][0]["height"];
     let width = data[0]["rooms"][0]["width"];
