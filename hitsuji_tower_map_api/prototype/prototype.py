@@ -20,6 +20,7 @@ class Rooms_prototype:
 
         # ここにコンポーザーを登録
         self.rooms = self.composer.connect()
+        self.rooms = self.composer.generate_terrain()
 
     def create(self, map_height, map_width):
         rooms = [[None for _ in range(map_width)] for _ in range(map_height)]
