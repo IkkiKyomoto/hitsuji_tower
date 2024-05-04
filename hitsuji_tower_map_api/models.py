@@ -91,6 +91,24 @@ def initAll():
                 print(room.id, column.id)
                 roomColumn = RoomColumn(room=room, column=column)
                 roomColumn.save()
+    # return {
+    #     "map_height": c.conf["map_height"],
+    #     "map_width": c.conf["map_width"],
+    #     "room_height": c.conf["room_height"],
+    #     "room_width": c.conf["room_width"],
+    #     "jump": c.conf["jump"],
+    #     "rooms": [
+    #         {
+    #             "pos_x": room.pos_x,
+    #             "pos_y": room.pos_y,
+    #             "columns": [
+    #                 {"pos_y": column.pos_y, "content": column.content}
+    #                 for column in columns
+    #             ],
+    #         }
+    #         for room in rooms
+    #     ],
+    # }
     # for i in range(prototype_map.height):
     #     for j in range(prototype_map.width):
     #         room = Room.initRoom()
