@@ -67,7 +67,6 @@ def initAll():
     columns = []
     for i in range(map.map_height):
         for j in range(map.map_width):
-            print(prototype_map.rooms.rooms[i][j].room)
             room = Room(
                 map=map,
                 pos_x=prototype_map.rooms.rooms[i][j].pos_x,
@@ -77,7 +76,6 @@ def initAll():
             )
             room.save()
             rooms.append(room)
-            print(map.id, room.id, "room")
             mapRoom = MapRoom(map=map, room=room)
             mapRoom.save()
             for k in range(prototype_map.rooms.rooms[i][j].height):
@@ -87,8 +85,6 @@ def initAll():
                 )
                 column.save()
                 columns.append(column)
-                print(room.id, column.id)
-                print(room.id, column.id)
                 roomColumn = RoomColumn(room=room, column=column)
                 roomColumn.save()
     # return {

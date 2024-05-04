@@ -22,13 +22,13 @@ class Composer:
             x = (conf["room_height"] - 1) / 2
             y = (conf["room_width"] - 1) / 2
             pos = [x + x * next[0], y + y * next[1]]
-            if pos[0] - floor(pos[0]) > 0:
+            if 0 < pos[0] < conf["room_height"] - 1:
                 pos[1] = int(pos[1])
                 gate = getGate(conf, next)
                 pos[0] = gate[0]
                 room[gate[0]][pos[1]] = "N"
                 room[gate[1]][pos[1]] = "N"
-            elif pos[1] - floor(pos[1]) > 0:
+            elif 0 < pos[1] < conf["room_width"] - 1:
                 pos[0] = int(pos[0])
                 gate = getGate(conf, next)
                 pos[1] = gate[0]
