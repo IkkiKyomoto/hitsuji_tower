@@ -109,24 +109,23 @@ class Composer:
             for i in range(1, p[0]):
                 for j in range(1, p[1]):
                     room[i][j] = "1"
-            while p[1] < end[1] - 1:
+            while p[1] < end[1] - 2:
                 step = randint(
                     -min(
                         p[0] - 1,
                         jump,
                     ),
-                    min(self.conf["room_height"] - p[0] - 2, jump),
+                    min(self.conf["room_height"] - p[0] - 3, jump),
                 )
-                while abs(end[0] - (p[0] + step)) > jump * (end[1] - p[1] - 1):
+                while abs(end[0] - (p[0] + step)) > jump * (end[1] - p[1] - 2):
                     step = randint(
                         -min(
                             p[0] - 1,
                             jump,
                         ),
-                        min(self.conf["room_height"] - p[0] - 2, jump),
+                        min(self.conf["room_height"] - p[0] - 3, jump),
                     )
-                    print(step)
-
+                p[1] += 1
                 if step > 0:
                     for i in range(abs(step)):
                         for j in range(end[1] - p[1]):
@@ -139,7 +138,10 @@ class Composer:
                         room[p[0] + step - 1][p[1] + i] = "1"
 
                 p[0] += step
-                p[1] += 1
+
+            room[p[0]][p[1] + 1] = "0"
+            print(p[1], end[1], ")")
+            print(p[0], end[0])
 
         start = [1, 1]
         goal = [3, self.conf["room_width"] - 2]
@@ -174,7 +176,6 @@ class Composer:
                     end[1] += 1
                     generate(start, end, room, jump, direction)
                     for k in range(1, self.conf["room_height"] - 2):
-                        print(end[1], self.conf["room_width"] - 1, "$")
                         room[k][self.conf["room_width"] - 2] = "1"
                 elif i % 2 == 0 and j == 0:
                     start[1] += 2
@@ -182,7 +183,6 @@ class Composer:
                     end[0] += 1
                     generate(start, end, room, jump, direction)
                     for k in range(1, self.conf["room_height"] - 2):
-                        print(end[1], self.conf["room_width"] - 1, "$")
                         room[k][self.conf["room_width"] - 2] = "1"
                 elif i % 2 == 1 and j == self.conf["map_width"] - 1:
 
@@ -220,6 +220,7 @@ class Composer:
                         direction = -1
                     start[1] += 2
                     end[1] -= 2
+                    print(start[1], end[1], i, j)
                     generate(start, end, room, jump, direction)
                     for k in range(self.conf["room_width"] - end[1] - 1):
                         room[end[0] - 1][end[1] + k] = "1"
