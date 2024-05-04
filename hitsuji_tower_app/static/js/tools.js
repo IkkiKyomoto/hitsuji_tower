@@ -40,3 +40,31 @@ function mapConversion(data){
     }
     return ret;
 }
+
+// playerのマップ上の位置から，canvas上の位置を設定する
+function setMapAndPlayer(){
+    // mapの座標
+    // x方向
+    game.data.objects.map.posX = game.config.canvasSize[0]/2-game.config.playerSize/2 - game.data.objects.player.mapX * game.config.tileSize;
+    game.data.objects.map.posY = game.config.canvasSize[1]/2+game.config.playerSize/2 - (game.data.objects.player.mapY+1) * game.config.tileSize;
+    /*
+    if(isNaN(game.data.objects.map.posX)){game.data.objects.map.posX=0;}
+    if(isNaN(game.data.objects.map.posY)){game.data.objects.map.posY=0;}
+    */
+    
+    // playerを真ん中にした時に，マップ外が表示される場合はずらす
+    if(0 < game.data.objects.map.posX){
+        game.data.objects.map.posX=0;
+    }else if(game.data.objects.map.posX<game.config.canvasSize[0]-game.data.objects.map.width*game.config.tileSize){
+        game.data.objects.map.posX=game.config.canvasSize[0]-game.data.objects.map.width*game.config.tileSize;
+    }
+    if(0 < game.data.objects.map.posY){
+        game.data.objects.map.posY=0;
+    }else if(game.data.objects.map.posY<game.config.canvasSize[1]-game.data.objects.map.height*game.config.tileSize){
+        game.data.objects.map.posY=game.config.canvasSize[1]-game.data.objects.map.height*game.config.tileSize;
+    }
+
+    // playerの座標設定
+    game.data.objects.player.posX = game.data.objects.map.posX + game.data.objects.player.mapX * game.config.tileSize;
+    game.data.objects.player.posY = game.data.objects.map.posY + (game.data.objects.player.mapY+1) * game.config.tileSize;
+}

@@ -58,11 +58,53 @@ class Player extends Sprite{
         // canvasX,Y : canvas上での座標
         // mapX,Y : map上での座標
         super(canvasX, canvasY, width, height);
-        
+        this.mapX = mapX;
+        this.mapY = mapY;
+
+        this.vx = 0; // x方向のスピード
+        this.vy = 0; // y方向のスピード
+        this.dvx = 0; // x 方向の加速度
+        this.dvy = 0; // y 方向の加速度
+
         this.draw = function(){   
             createRoundRectPath(this.posX, this.posY, this.width, this.height, 20);
             game.data.context.fillStyle = "#fff";
             game.data.context.fill();
         }; 
+    }
+
+    move(){
+        // 加速度
+        this.dvx=0; this.dvy=0; // 加速度初期化
+        let moveFlg = false;
+        if(game.data.inputKey.has("ArrowRight")){
+            // 右移動
+            this.dvx += 0.015;
+            moveFlg = true;
+        }else if(0<this.vx){
+            this.dvx -= 0.03
+        }
+
+        if(game.data.inputKey.has("ArrowLeft")){
+            // 右移動
+            this.dvx -= 0.015;
+            moveFlg = true;
+        }else if(0>this.vx){
+            this.dvx += 0.03
+        }
+
+        // 速度計算
+        console.log(Math.abs(this.vx), this.dvx);
+        if(moveFlg==false && Math.abs(this.vx)<0.05){
+            // キー入力がされていないかつほぼ速度0
+
+            this.vx=0;
+        } else {
+            this.vx+=this.dvx;
+        }
+
+        // 移動
+        this.mapX += this.vx
+
     }
 }

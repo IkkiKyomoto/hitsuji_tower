@@ -20,7 +20,6 @@ function titleOnLoad(){
 };
 
 function titleUpdate(){
-    console.log(game.data.inputKey);
     // game.data.inputKey.clear();
     for(let i=0; i<game.data.clickPos.length; i++){
         // マウスクリック
@@ -59,23 +58,27 @@ function gameOnLoad(){
     }
 
     // プレイヤー
+    //    プレイヤーの座標は右下
+    let playeMaprPos = [1, 13];
     game.data.objects.player = new Player(
-        game.config.canvasSize[0]/2-game.config.playerSize/2, 
-        game.config.canvasSize[1]/2-game.config.playerSize/2, 
-        0,
-        0,
+        100,
+        100,
+        30,
+        15,
         game.config.playerSize,
         game.config.playerSize
     );
 
     // map
     game.data.objects.map = game.data.map;
-    
-
 }
 
 function gameUpdate(){
-    
+    // player 入力受け取り
+    game.data.objects.player.move();
+
+    // mapとプレイヤーの初期値設定
+    setMapAndPlayer();
 }
 
 function gameDraw(){
