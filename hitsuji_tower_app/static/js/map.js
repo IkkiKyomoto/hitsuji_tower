@@ -4,13 +4,17 @@ class MapData{
         this.width = mapIds[0].length;
         this.ids = structuredClone(mapIds); // 複製
         this.map = new Array(this.height);
+
+        this.startPos = [1, 1]; // start地点
         for(let i=0; i<this.height; i++){
             this.map[i] = new Array(this.width)
             for(let j=0; j<this.width; j++){
                 switch(this.ids[i][j]){
+                    case "S":
+                        this.startPos = [j,i];
                     case "0":
                     case "N":
-                    case "S":
+                    case "G":
                         this.map[i][j] = new MapAir(j,i);
                         break;
                     case "1":

@@ -67,15 +67,16 @@ class Player extends Sprite{
         this.dvy = 0; // y 方向の加速度
 
         this.draw = function(){   
-            createRoundRectPath(this.posX, this.posY, this.width, this.height, 20);
+            createRoundRectPath(this.posX, this.posY-this.height, this.width, this.height, 20);
             game.data.context.fillStyle = "#fff";
             game.data.context.fill();
         }; 
     }
 
     move(){
+        // 横移動
         // 加速度
-        this.dvx=0; this.dvy=0; // 加速度初期化
+        this.dvx=0; this.dvy=+0.01; // 加速度初期化
         let moveFlg = false;
         if(game.data.inputKey.has("ArrowRight")){
             // 右移動
@@ -97,14 +98,34 @@ class Player extends Sprite{
         console.log(Math.abs(this.vx), this.dvx);
         if(moveFlg==false && Math.abs(this.vx)<0.05){
             // キー入力がされていないかつほぼ速度0
-
             this.vx=0;
         } else {
             this.vx+=this.dvx;
+            if(0.5 < this.vx){
+                this.vx = 0.5;
+            } else if(-0.5 > this.vx){
+                this.vx = -0.5;
+            }
         }
 
-        // 移動
-        this.mapX += this.vx
-
+        // 移動 (壁にぶつかるなら移動しない)
+        if(game.data.map.ids[Math.floor(this.mapY)][Math.floor(this.mapX+this.vx)]!=="1" && game.data.map.ids[Math.floor(this.mapY)][Math.floor(this.mapX+this.vx+this.width/game.config.tileSize)]!=="1"){
+            this.mapX += this.vx;
+        }
+        
+        // 縦移動
+        if(game.data.inputKey.has("ArrowUp")){
+            // 上移動
+            if(game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX)]=="1" || game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX+this.width/game.config.tileSize)]=="1"){
+                this.vy = -0.3;
+            }
+        }
+        this.vy += this.dvy; // 重力
+        if(0.05<this.vy){
+            this.vy = 0.1;
+        }
+        if(game.data.map.ids[Math.ceil(this.mapY+this.vy)][Math.floor(this.mapX+this.vx)]!=="1" && game.data.map.ids[Math.ceil(this.mapY+this.vy)][Math.floor(this.mapX+this.width/game.config.tileSize)]!=="1"){
+            this.mapY += this.vy;
+        }
     }
 }
