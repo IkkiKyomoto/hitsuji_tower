@@ -1,5 +1,4 @@
 from random import randint
-from math import floor
 
 
 class Composer:
@@ -26,23 +25,28 @@ class Composer:
                 pos[1] = int(pos[1])
                 gate = getGate(conf, next)
                 pos[0] = gate[0]
-                room[gate[0]][pos[1]] = "N"
-                room[gate[1]][pos[1]] = "N"
+                if i % 2 == 0:
+                    pos[0] = conf["room_height"] - 3
+                    room[pos[0]][pos[1]] = "N"
+                    room[pos[0] + 1][pos[1]] = "N"
+                if i % 2 == 1:
+                    pos[0] = 1
+                    room[pos[0]][pos[1]] = "N"
+                    room[pos[0] + 1][pos[1]] = "N"
             elif 0 < pos[1] < conf["room_width"] - 1:
                 if i % 2 == 0:
                     pos[0] = int(pos[0])
                     gate = getGate(conf, next)
-                    pos[1] = gate[0]
+                    pos[1] = conf["room_width"] - 3
                     room[pos[0]][conf["room_width"] - 3] = "N"
                     room[pos[0]][conf["room_width"] - 2] = "N"
                 else:
                     pos[0] = int(pos[0])
                     gate = getGate(conf, next)
-                    pos[1] = gate[0]
+                    pos[1] = 1
                     room[pos[0]][1] = "N"
                     room[pos[0]][2] = "N"
             pos = list(map(int, pos))
-            print(self.rooms[i][j].start, ">")
             self.rooms[i][j].end = pos
 
             return [room, pos]
@@ -102,100 +106,43 @@ class Composer:
 
     def generate_terrain(self):
         def generate(p, end, room, jump, direction):
-            for i in range(p[0] - 1):
-                for j in range(abs(end[1] - p[1])):
-
+            for i in range(1, p[0]):
+                for j in range(1, p[1]):
                     room[i][j] = "1"
-            while (
-                -3 * (end[1] - p[1] - 1) < (end[0] - p[0]) < 3 * (end[1] - p[1] - 1)
-                and p[1] < self.conf["room_width"] - 1
-            ):
+            while p[1] < end[1] - 1:
                 step = randint(
                     -min(
                         p[0] - 1,
                         jump,
                     ),
-                    min(self.conf["room_height"] - p[0] - 3, jump),
+                    min(self.conf["room_height"] - p[0] - 2, jump),
                 )
+                while abs(end[0] - (p[0] + step)) > jump * (end[1] - p[1] - 1):
+                    step = randint(
+                        -min(
+                            p[0] - 1,
+                            jump,
+                        ),
+                        min(self.conf["room_height"] - p[0] - 2, jump),
+                    )
+                    print(step)
 
-                for k in range(abs(step)):
-                    for l in range(end[1] - p[1]):
-                        if p[0] + k < 0 or p[0] + k >= self.conf["room_height"]:
-                            continue
-                        elif step > 0:
-                            k = min(k, self.conf["room_height"] - p[0] - 1)
-                            room[p[0] + k][p[1] + l] = "1"
-                        else:
-                            k = min(k, p[0] - 1)
-                            room[p[0] - k][p[1] + l] = "0"
-                p[1] += 1
+                if step > 0:
+                    for i in range(abs(step)):
+                        for j in range(end[1] - p[1]):
+                            room[p[0] + i][p[1] + j] = "1"
+                else:
+                    for i in range(abs(step)):
+                        for j in range(end[1] - p[1]):
+                            room[p[0] - i][p[1] + j] = "0"
+                    for i in range(end[1] - p[1]):
+                        room[p[0] + step - 1][p[1] + i] = "1"
+
                 p[0] += step
-            if p[0] < end[0] and p[1] < end[1] - 2:
-                while p[0] < end[0] and p[1] < end[1]:
-                    for k in range(jump):
-                        for l in range(end[1] - p[1]):
-                            room[p[0] + k][p[1] + l] = "1"
-                    p[1] += 1
-                    p[0] += jump
-
-            else:
-                while p[0] > end[0] and p[1] < end[1]:
-                    for k in range(jump):
-                        for l in range(end[1] - p[1]):
-                            room[p[0] - k][p[1] + l] = "0"
-                    p[1] += 1
-                    p[0] -= jump
-            # for i in range(p[1] - end[1]):
-            #     for j in range(p[0]):
-            #         room[j][p[1] + i - 1] = "1"
-            room[end[0]][end[1] - 1] = "0"
-            room[end[0] + 1][end[1] - 1] = "0"
-            # elif direction == -1:
-            #     for i in range(p[1] - end[1]):
-            #         for j in range(p[0]):
-            #             room[i][j] = "1"
-            #     while (
-            #         -3 * (end[1] - p[1]) < (end[0] - p[0]) < 3 * (end[1] - p[1])
-            #         and p[1] < self.conf["room_width"] - 1
-            #     ):
-            #         step = randint(
-            #             -min(
-            #                 p[0] - 1,
-            #                 jump,
-            #             ),
-            #             min(self.conf["room_height"] - p[0] - 3, jump),
-            #         )
-
-            #         for k in range(abs(step)):
-            #             for l in range(abs(end[1] - p[1])):
-            #                 if p[0] + k < 0 or p[0] + k >= self.conf["room_height"]:
-            #                     continue
-            #                 elif step > 0:
-            #                     k = min(k, self.conf["room_height"] - p[0] - 1)
-            #                     room[p[0] + k][p[1] - l] = "1"
-            #                 else:
-            #                     k = min(k, p[0] - 1)
-            #                     room[p[0] - k][p[1] - l] = "0"
-            #         p[1] -= 1
-            #         p[0] += step
-            #     while p[0] < end[0] and p[1] < end[1] - 2:
-            #         for k in range(jump):
-            #             for l in range(abs(end[1] - p[1])):
-            #                 room[p[0] + k][p[1] - l] = "1"
-            #         p[1] -= 1
-            #         p[0] += jump
-            #     while p[0] > end[0] and p[1] < end[1] - 1:
-            #         for k in range(jump):
-            #             for l in range(end[1] - p[1]):
-            #                 room[p[0] - k][p[1] - l] = "0"
-            #         p[1] -= 1
-            #         p[0] -= jump
-
-            #     room[end[0]][end[1] - 1] = "0"
-            #     room[end[0] + 1][end[1] - 1] = "0"
+                p[1] += 1
 
         start = [1, 1]
-        goal = [1, self.conf["room_width"] - 2]
+        goal = [3, self.conf["room_width"] - 1]
         jump = self.conf["jump"]
         for i in range(self.conf["map_height"]):
             for j in range(self.conf["map_width"]):
@@ -206,7 +153,7 @@ class Composer:
                 if i == 0 and j == 0:
                     start = [1, 1]
                     room[start[0]][start[1]] = "S"
-                    start[1] += 1
+                    start[1] += 2
                     direction = 1
                     generate(start, end, room, jump, direction)
                 elif (
@@ -214,36 +161,40 @@ class Composer:
                 ):
                     room[goal[0]][goal[1]] = "G"
                     direction = 1
-                    start[1] += 1
+                    start[1] += 2
                     generate(start, goal, room, jump, direction)
 
                 elif i % 2 == 0 and j == self.conf["map_width"] - 1:
-                    end[0] -= 1
-                    end[1] -= 1
                     direction = 1
-                    start[1] += 1
+                    start[1] += 2
                     generate(start, end, room, jump, direction)
                 elif i % 2 == 0 and j == 0:
-                    start = [start[0] + 1, start[1] + 2]
+                    start[1] += 2
+                    print(end[0], "$")
+                    end[1] -= 1
                     generate(start, end, room, jump, direction)
                 elif i % 2 == 1 and j == self.conf["map_width"] - 1:
-                    start = [start[0] - 1, start[1]]
+
                     direction = -1
                     tmp = end
                     end = start
                     start = tmp
-                    start[1] += 1
-                    end[1] -= 1
-                    end[0] += 1
+                    start[1] += 2
+                    end[1] -= 2
+                    end[0] = 1
                     generate(start, end, room, jump, direction)
                 elif i % 2 == 1 and j == 0:
-                    end = [end[0] - 2, end[1] - 2]
-                    direction = -1
+                    print(start, "+")
+                    direction = 1
                     tmp = end
                     end = start
                     start = tmp
-
                     start[1] += 1
+                    start[0] -= 1
+                    end[1] -= 1
+                    for k in range(1, start[0]):
+                        room[k][start[1]] = "1"
+                    print(start, end)
                     generate(start, end, room, jump, direction)
                 else:
                     direction = None
@@ -254,7 +205,8 @@ class Composer:
                         end = start
                         start = tmp
                         direction = -1
-                    start[1] += 1
+                    start[1] += 2
+                    end[1] -= 2
                     generate(start, end, room, jump, direction)
 
                 # while p[1] < end[1] and p[0] < end[0] - 3:
