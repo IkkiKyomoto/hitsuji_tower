@@ -57,20 +57,21 @@ function gameOnLoad(){
         game.data.context.fill();
     }
 
+    // map
+    game.data.objects.map = game.data.map;
+
     // プレイヤー
     //    プレイヤーの座標は右下
     let playeMaprPos = [1, 13];
     game.data.objects.player = new Player(
         100,
         100,
-        30,
-        15,
+        game.data.objects.map.startPos[0],
+        game.data.objects.map.startPos[1],
         game.config.playerSize,
         game.config.playerSize
     );
 
-    // map
-    game.data.objects.map = game.data.map;
 }
 
 function gameUpdate(){

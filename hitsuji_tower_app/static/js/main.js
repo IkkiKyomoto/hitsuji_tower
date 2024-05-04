@@ -7,7 +7,7 @@ game.config = {
         game: "ゲーム",
         result: "結果"
     },
-    tileSize: 60, // 各マスの大きさ(px)
+    tileSize: 50, // 各マスの大きさ(px)
     playerSize:30 // プレイヤーの大きさ(px)
 
 };
@@ -71,6 +71,7 @@ function init(){
 };
 
 function gameloop(){
+    console.log(game.data.inputKey);
     switch(game.data.scene){
         case game.config.scenes.title:
             titleDraw();
