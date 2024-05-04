@@ -23,4 +23,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("hitsuji_tower_app.urls")),
     path("api/", include("hitsuji_tower_map_api.urls")),
+    path("api/", include("hitsuji_ranking.urls")),
 ]

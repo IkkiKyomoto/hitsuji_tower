@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     # ひつじタワーのアプリケーションを追加
+    "hitsuji_ranking",
     "rest_framework",
     "hitsuji_tower_app",
     "hitsuji_tower_map_api",
