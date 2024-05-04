@@ -67,17 +67,22 @@ function gameOnLoad(){
         game.config.playerSize,
         game.config.playerSize
     );
+
+    // map
+    game.data.objects.map = game.data.map;
     
 
 }
 
 function gameUpdate(){
-
+    
 }
 
 function gameDraw(){
     // bgImage
     game.data.objects.bgImage.draw();
+    // map
+    game.data.objects.map.draw();
     // player
     game.data.objects.player.draw();
 }
