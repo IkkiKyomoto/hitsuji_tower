@@ -2,8 +2,8 @@ conf = {
     "map_height": 3,
     "map_width": 2,
     "jump": 3,
-    "room_height": 4,
-    "room_width": 4,
+    "room_height": 15,
+    "room_width": 15,
     "variety": 6,
 }
 
