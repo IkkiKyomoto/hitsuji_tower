@@ -50,7 +50,7 @@ function gameOnLoad(){
     // 背景
     let src = "./static/img/background.PNG";
     game.data.objects.bgImage = new ImageBox(0, 0, game.config.canvasSize[0], game.config.canvasSize[1], src);
-    /*
+    /* 仮置き背景
     game.data.objects.bgImage.draw = function(){
         let col = "rgb(140, 238, 255)";
         createRoundRectPath(this.posX, this.posY, this.width, this.height, 0);
