@@ -80,46 +80,44 @@ class Player extends Sprite{
                 case "right":
                     switch (this.moveStatus) {
                         case "stand":
-                            this.img.src = "./static/img/player_standing1.PNG";
+                            this.img.src = "./static/img/player_standr.PNG";
 
                         case "walk":
+                            this.img.src = "./static/img/player_walk1r.PNG";
 
                         case "dash 1":
+                            this.img.src = "./static/img/player_dash11r.PNG";
 
                         case "dash 2":
+                            this.img.src = "./static/img/player_dash2r.PNG";
 
-                        case "walk":
-
-                        case "dash 1":
-
-                        case "dash 2":
-
-                        case "jump":
+                        case "jump 1":
+                            this.img.src = "./static/img/player_jumpr.PNG";
 
                         case "fall":
+                            this.img.src = "./static/img/player_fallr.PNG";
 
                     }
 
                 case "left":
                     switch (this.moveStatus) {
                         case "stand":
-                            this.img.src = "./static/img/player_standing1.PNG";
+                            this.img.src = "./static/img/player_standl.PNG";
 
                         case "walk":
+                            this.img.src = "./static/img/player_walk1l.PNG";
 
                         case "dash 1":
+                            this.img.src = "./static/img/player_dash13l.PNG";
 
                         case "dash 2":
+                            this.img.src = "./static/img/player_dash2l.PNG";
 
-                        case "walk":
-
-                        case "dash 1":
-
-                        case "dash 2":
-
-                        case "jump":
+                        case "jump 1":
+                            this.img.src = "./static/img/player_jump1l.PNG";
 
                         case "fall":
+                            this.img.src = "./static/img/player_falll.PNG";
 
                     }
             }
@@ -186,7 +184,7 @@ class Player extends Sprite{
         }
 
         if(this.vy > 0.0){
-            this.moveStatus = "jump";
+            this.moveStatus = "jump 1";
         } else if(this.vy < 0.0){
             this.moveStatus = "fall";
         }
