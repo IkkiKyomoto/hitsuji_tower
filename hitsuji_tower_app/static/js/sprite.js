@@ -90,7 +90,7 @@ class Player extends Sprite{
                 case "jump":
 
             }
-            game.data.context.drawImage(this.img, this.posX, this.posY, this.width, this.height);
+            game.data.context.drawImage(this.img, this.posX, this.posY-game.config.playerSize, this.width, this.height);
         }; 
     }
 
