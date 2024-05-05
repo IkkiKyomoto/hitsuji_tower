@@ -48,8 +48,8 @@ function gameOnLoad(){
     game.data.objects = {};
 
     // 背景
-    let src = "./static/img/background.PNG";
-    game.data.objects.bgImage = new ImageBox(0, 0, game.config.canvasSize[0], game.config.canvasSize[1], src);
+    let backgroundSrc = "./static/img/background.PNG";
+    game.data.objects.bgImage = new ImageBox(0, 0, game.config.canvasSize[0], game.config.canvasSize[1], backgroundSrc);
     /* 仮置き背景
     game.data.objects.bgImage.draw = function(){
         let col = "rgb(140, 238, 255)";
@@ -71,7 +71,7 @@ function gameOnLoad(){
         game.data.objects.map.startPos[0],
         game.data.objects.map.startPos[1],
         game.config.playerSize,
-        game.config.playerSize
+        game.config.playerSize,
     );
 
 }

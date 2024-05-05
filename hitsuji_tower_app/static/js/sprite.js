@@ -61,15 +61,36 @@ class Player extends Sprite{
         this.mapX = mapX;
         this.mapY = mapY;
 
+        this.moveStatus = "stand";
         this.vx = 0; // x方向のスピード
         this.vy = 0; // y方向のスピード
         this.dvx = 0; // x 方向の加速度
         this.dvy = 0; // y 方向の加速度
 
-        this.draw = function(){   
+        this.img = new Image();
+        this.img.src = "";
+        this.draw = function(){
+            /*
             createRoundRectPath(this.posX, this.posY-this.height, this.width, this.height, 20);
             game.data.context.fillStyle = "#fff";
             game.data.context.fill();
+            */
+            switch (this.moveStatus) {
+                case "stand":
+                    this.img.src = "./static/img/player_standing1.PNG";
+
+                case "walk":
+
+                case "dash1":
+
+                case "dash2":
+
+                case "dash3":
+
+                case "jump":
+
+            }
+            game.data.context.drawImage(this.img, this.posX, this.posY, this.width, this.height);
         }; 
     }
 
