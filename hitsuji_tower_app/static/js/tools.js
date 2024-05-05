@@ -68,3 +68,14 @@ function setMapAndPlayer(){
     game.data.objects.player.posX = game.data.objects.map.posX + game.data.objects.player.mapX * game.config.tileSize;
     game.data.objects.player.posY = game.data.objects.map.posY + (game.data.objects.player.mapY+1) * game.config.tileSize;
 }
+
+function isGameOver(){
+    // playerがゴール地点にたどり着いたらゲーム終了
+    flg = (
+        game.data.map.ids[Math.ceil(game.data.objects.player.mapY)][Math.floor(game.data.objects.player.mapX)]=="G"
+        || game.data.map.ids[Math.ceil(game.data.objects.player.mapY)][Math.floor(game.data.objects.player.mapX+game.data.objects.player.width/game.config.tileSize-0.01)]=="G"
+        || game.data.map.ids[Math.ceil(game.data.objects.player.mapY-game.data.objects.player.height/game.config.tileSize+0.01)][Math.floor(game.data.objects.player.mapX)]=="G"
+        || game.data.map.ids[Math.ceil(game.data.objects.player.mapY-game.data.objects.player.height/game.config.tileSize+0.01)][Math.floor(game.data.objects.player.mapX+game.data.objects.player.width/game.config.tileSize-0.01)]=="G"
+        )
+    return flg;
+}

@@ -83,6 +83,8 @@ function gameloop(){
             gameUpdate();
             break
         case game.config.scenes.result:
+            resultDraw();
+            resultUpdate();
             
     }
 };

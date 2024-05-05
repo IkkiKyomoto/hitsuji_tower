@@ -236,7 +236,7 @@ class Sheep extends Sprite{
 
         this.move = function(){
             this.posX = game.data.map.posX + this.mapX*game.config.tileSize;
-            this.posY = game.data.map.posY + this.mapY*game.config.tileSize - this.height;
+            this.posY = game.data.map.posY + (this.mapY+1)*game.config.tileSize - this.height;
         }
     }
 }
