@@ -4,16 +4,16 @@ let colorIntensityUP = 0; // 色の濃度（スペース）
 
 document.addEventListener('keydown', function(event) {
     if (event.keyCode === 65 || event.keyCode === 37) { // 'A','←'キーが押された場合
-        colorIntensityA -= 10; // 色の濃度を減少させる
+        colorIntensityA -= 1; // 色の濃度を減少させる
         updateBackgroundColor(); // 背景色を更新する関数を呼び出す
     }
     if (event.keyCode === 32 || event.keyCode === 87 || event.keyCode === 38) { 
         // 'スペース','w','↑'キーが押された場合
-        colorIntensityUP += 10; // 色の濃度を増やす
+        colorIntensityUP += 0.005; // 色の濃度を増やす
         updateBackgroundColor(); // 背景色を更新する関数を呼び出す
     }
     if (event.keyCode === 68 || event.keyCode === 39) { // 'D','→'キーが押された場合
-        colorIntensityD += 10; // 色の濃度を増やす
+        colorIntensityD += 1; // 色の濃度を増やす
         updateBackgroundColor(); // 背景色を更新する関数を呼び出す
     }
 });
