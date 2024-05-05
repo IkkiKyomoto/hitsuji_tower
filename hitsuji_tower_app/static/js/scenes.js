@@ -6,7 +6,7 @@ function titleOnLoad(){
     game.data.objects = [];
 
     // タイトル背景
-    let src = "https://www.famitsu.com/images/000/301/230/y_644b3619ebab1.jpg";
+    let src = "./static/img/background.PNG";
     game.data.objects.bgImage = new ImageBox(0, 0, game.config.canvasSize[0], game.config.canvasSize[1], src);
 
     // ボタン配置
@@ -48,14 +48,16 @@ function gameOnLoad(){
     game.data.objects = {};
 
     // 背景
-    src = "";
+    let src = "./static/img/background.PNG";
     game.data.objects.bgImage = new ImageBox(0, 0, game.config.canvasSize[0], game.config.canvasSize[1], src);
+    /*
     game.data.objects.bgImage.draw = function(){
         let col = "rgb(140, 238, 255)";
         createRoundRectPath(this.posX, this.posY, this.width, this.height, 0);
         game.data.context.fillStyle = col;
         game.data.context.fill();
     }
+    */
 
     // map
     game.data.objects.map = game.data.map;
