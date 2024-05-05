@@ -75,7 +75,7 @@ class Player extends Sprite{
             createRoundRectPath(this.posX, this.posY-this.height, this.width, this.height, 20);
             game.data.context.fillStyle = "#fff";
             game.data.context.fill();
-            */
+            
             switch(this.moveDirection){
                 case "right":
                     switch (this.moveStatus) {
@@ -90,12 +90,6 @@ class Player extends Sprite{
 
                         case "dash 2":
                             this.img.src = "./static/img/player_dash2r.PNG";
-
-                        case "jump 1":
-                            this.img.src = "./static/img/player_jumpr.PNG";
-
-                        case "fall":
-                            this.img.src = "./static/img/player_fallr.PNG";
 
                     }
 
@@ -113,14 +107,10 @@ class Player extends Sprite{
                         case "dash 2":
                             this.img.src = "./static/img/player_dash2l.PNG";
 
-                        case "jump 1":
-                            this.img.src = "./static/img/player_jump1l.PNG";
-
-                        case "fall":
-                            this.img.src = "./static/img/player_falll.PNG";
-
                     }
             }
+            */
+            this.img.src = "./static/img/player_standr.PNG";
             game.data.context.drawImage(this.img, this.posX, this.posY-game.config.playerSize, this.width, this.height);
         }; 
     }
@@ -181,12 +171,6 @@ class Player extends Sprite{
         } else if(this.vx < -2.0 && this.vx >= -3.0) {
             this.moveStatus = "dash 2";
             this.moveDirection = "left";
-        }
-
-        if(this.vy > 0.0){
-            this.moveStatus = "jump 1";
-        } else if(this.vy < 0.0){
-            this.moveStatus = "fall";
         }
 
         // 移動 (壁にぶつかるなら移動しない)
