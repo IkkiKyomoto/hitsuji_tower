@@ -67,8 +67,10 @@ function gameOnLoad(){
     game.data.objects.player = new Player(
         100,
         100,
-        game.data.objects.map.startPos[0],
-        game.data.objects.map.startPos[1],
+        // game.data.objects.map.startPos[0],
+        // game.data.objects.map.startPos[1],
+        game.data.objects.map.goalPos[0],
+        game.data.objects.map.goalPos[1],
         game.config.playerSize,
         game.config.playerSize,
     );
@@ -82,6 +84,9 @@ function gameOnLoad(){
         game.config.sheepSize*1.38
     );
     console.log(game.data.objects.sheep);
+
+    // 時間計測 start
+    game.data.startTime = Date.now();
 }
 
 function gameUpdate(){
@@ -92,6 +97,12 @@ function gameUpdate(){
 
     // mapとプレイヤーの初期値設定
     setMapAndPlayer();
+
+    // gameover 判定
+    if(isGameOver()){
+        game.data.endTime = Date.now();
+        resultOnload();
+    }
 }
 
 function gameDraw(){
@@ -103,4 +114,48 @@ function gameDraw(){
     game.data.objects.player.draw();
     // sheep
     game.data.objects.sheep.draw();
+}
+
+function resultOnload(){
+    // scene 切り替え
+    game.data.scene = game.config.scenes.result;
+
+    // 画面内オブジェクト 初期化
+    game.data.objects = {};
+
+    let resultBoxSize = [400, 300];
+    game.data.objects.resultBg = new Button(game.config.canvasSize[0]/2-resultBoxSize[0]/2, game.config.canvasSize[1]/2-resultBoxSize[1]/2, resultBoxSize[0], resultBoxSize[1], "");
+    game.data.objects.resultBg.draw = function(){
+        // 背景
+        createRoundRectPath(this.posX, this.posY, this.width, this.height, 30);
+        game.data.context.fillStyle = "#222";
+        game.data.context.fill();
+    };
+
+    game.data.objects.resultText = new Button(game.config.canvasSize[0]/2-resultBoxSize[0]/2, game.config.canvasSize[1]/2-resultBoxSize[1]/2+50, resultBoxSize[0], 30, "リザルト");
+    game.data.objects.resultText.draw = function(){
+        game.data.context.fillStyle = "#FFF";
+        game.data.context.textAlign = "center";
+		game.data.context.textBaseline = "top";
+        game.data.context.fillText(this.text, this.posX+this.width/2, this.posY);
+    }
+
+    game.data.objects.timeText = new Button(game.config.canvasSize[0]/2-resultBoxSize[0]/2, game.config.canvasSize[1]/2-resultBoxSize[1]/2+150, resultBoxSize[0], 30, `${((game.data.endTime - game.data.startTime)/1000).toFixed(2)} 秒`);
+    game.data.objects.timeText.draw = function(){
+        game.data.context.fillStyle = "#FFF";
+        game.data.context.textAlign = "center";
+		game.data.context.textBaseline = "top";
+        game.data.context.fillText(this.text, this.posX+this.width/2, this.posY);
+    }
+
+}
+
+function resultUpdate(){
+
+}
+function resultDraw(){
+    // 背景
+    game.data.objects.resultBg.draw();
+    game.data.objects.resultText.draw();
+    game.data.objects.timeText.draw();
 }
