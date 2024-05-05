@@ -62,6 +62,7 @@ class Player extends Sprite{
         this.mapY = mapY;
 
         this.moveStatus = "stand";
+        this.moveDirection = "right";
         this.vx = 0; // x方向のスピード
         this.vy = 0; // y方向のスピード
         this.dvx = 0; // x 方向の加速度
@@ -75,20 +76,52 @@ class Player extends Sprite{
             game.data.context.fillStyle = "#fff";
             game.data.context.fill();
             */
-            switch (this.moveStatus) {
-                case "stand":
-                    this.img.src = "./static/img/player_standing1.PNG";
+            switch(this.moveDirection){
+                case "right":
+                    switch (this.moveStatus) {
+                        case "stand":
+                            this.img.src = "./static/img/player_standing1.PNG";
 
-                case "walk":
+                        case "walk":
 
-                case "dash1":
+                        case "dash 1":
 
-                case "dash2":
+                        case "dash 2":
 
-                case "dash3":
+                        case "walk":
 
-                case "jump":
+                        case "dash 1":
 
+                        case "dash 2":
+
+                        case "jump":
+
+                        case "fall":
+
+                    }
+
+                case "left":
+                    switch (this.moveStatus) {
+                        case "stand":
+                            this.img.src = "./static/img/player_standing1.PNG";
+
+                        case "walk":
+
+                        case "dash 1":
+
+                        case "dash 2":
+
+                        case "walk":
+
+                        case "dash 1":
+
+                        case "dash 2":
+
+                        case "jump":
+
+                        case "fall":
+
+                    }
             }
             game.data.context.drawImage(this.img, this.posX, this.posY-game.config.playerSize, this.width, this.height);
         }; 
@@ -125,8 +158,37 @@ class Player extends Sprite{
             if(0.3 < this.vx){
                 this.vx = 0.3;
             } else if(-0.3 > this.vx){
-                this.vx = -0.15;
+                this.vx = -0.3;
             }
+        }
+
+        // 画像差し替えの判定
+        if(this.vx == 0.0){
+            this.moveStatus = "stand";
+        } else if(this.vx > 0.0 && this.vx <= 1.0){
+            this.moveStatus = "walk";
+            this.moveDirection = "right";
+        } else if(this.vx > 1.0 && this.vx <= 2.0){
+            this.moveStatus = "dash 1";
+            this.moveDirection = "right";
+        } else if(this.vx > 2.0 && this.vx <= 3.0){
+            this.moveStatus = "dash 2";
+            this.moveDirection = "right";
+        } else if(this.vx < 0.0 && this.vx >= -1.0){
+            this.moveStatus = "walk";
+            this.moveDirection = "left";
+        } else if(this.vx < -1.0 && this.vx >= -2.0) {
+            this.moveStatus = "dash 1";
+            this.moveDirection = "left";
+        } else if(this.vx < -2.0 && this.vx >= -3.0) {
+            this.moveStatus = "dash 2";
+            this.moveDirection = "left";
+        }
+
+        if(this.vy > 0.0){
+            this.moveStatus = "jump";
+        } else if(this.vy < 0.0){
+            this.moveStatus = "fall";
         }
 
         // 移動 (壁にぶつかるなら移動しない)
