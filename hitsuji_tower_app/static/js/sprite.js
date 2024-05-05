@@ -97,7 +97,7 @@ class Player extends Sprite{
     move(){
         // 横移動
         // 加速度
-        this.dvx=0; this.dvy=+0.015; // 加速度初期化
+        this.dvx=0; this.dvy=+0.01; // 加速度初期化
         let moveFlg = false;
         if(game.data.inputKey.has("ArrowRight")){
             // 右移動
@@ -122,10 +122,10 @@ class Player extends Sprite{
             this.vx=0;
         } else {
             this.vx+=this.dvx;
-            if(0.5 < this.vx){
-                this.vx = 0.5;
-            } else if(-0.5 > this.vx){
-                this.vx = -0.5;
+            if(0.3 < this.vx){
+                this.vx = 0.3;
+            } else if(-0.3 > this.vx){
+                this.vx = -0.15;
             }
         }
 
@@ -146,7 +146,7 @@ class Player extends Sprite{
         if(game.data.inputKey.has("ArrowUp")){
             // 上移動
             if(game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX)]=="1" || game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX+this.width/game.config.tileSize-0.01)]=="1"){
-                this.vy = -0.4;
+                this.vy = -0.3;
             }
         }
         this.vy += this.dvy; // 重力
