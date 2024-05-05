@@ -67,10 +67,10 @@ function gameOnLoad(){
     game.data.objects.player = new Player(
         100,
         100,
-        // game.data.objects.map.startPos[0],
-        // game.data.objects.map.startPos[1],
-        game.data.objects.map.goalPos[0],
-        game.data.objects.map.goalPos[1],
+        game.data.objects.map.startPos[0],
+        game.data.objects.map.startPos[1],
+        // game.data.objects.map.goalPos[0],
+        // game.data.objects.map.goalPos[1],
         game.config.playerSize,
         game.config.playerSize,
     );
