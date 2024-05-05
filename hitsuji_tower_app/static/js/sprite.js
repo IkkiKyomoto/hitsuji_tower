@@ -168,3 +168,31 @@ class Player extends Sprite{
         }
     }
 }
+
+class Sheep extends Sprite{
+    constructor(canvasX, canvasY, mapX, mapY, width, height){
+        // canvasX,Y : canvas上での座標
+        // mapX,Y : map上での座標
+        super(canvasX, canvasY, width, height);
+        this.mapX = mapX;
+        this.mapY = mapY;
+
+        // img
+        this.img = new Image();
+        this.img.src = "./static/img/goal_waiting.PNG";
+
+        this.vx = 0; // x方向のスピード
+        this.vy = 0; // y方向のスピード
+        this.dvx = 0; // x 方向の加速度
+        this.dvy = 0; // y 方向の加速度
+
+        this.draw = function(){   
+            game.data.context.drawImage(this.img, this.posX, this.posY, this.width, this.height);
+        };
+
+        this.move = function(){
+            this.posX = game.data.map.posX + this.mapX*game.config.tileSize;
+            this.posY = game.data.map.posY + this.mapY*game.config.tileSize - this.height;
+        }
+    }
+}

@@ -64,7 +64,6 @@ function gameOnLoad(){
 
     // プレイヤー
     //    プレイヤーの座標は右下
-    let playeMaprPos = [1, 13];
     game.data.objects.player = new Player(
         100,
         100,
@@ -74,11 +73,22 @@ function gameOnLoad(){
         game.config.playerSize,
     );
 
+    game.data.objects.sheep = new Sheep(
+        100,
+        100,
+        game.data.objects.map.goalPos[0],
+        game.data.objects.map.goalPos[1],
+        game.config.sheepSize,
+        game.config.sheepSize*1.38
+    );
+    console.log(game.data.objects.sheep);
 }
 
 function gameUpdate(){
     // player 入力受け取り
     game.data.objects.player.move();
+    // sheep
+    game.data.objects.sheep.move();
 
     // mapとプレイヤーの初期値設定
     setMapAndPlayer();
@@ -91,4 +101,6 @@ function gameDraw(){
     game.data.objects.map.draw();
     // player
     game.data.objects.player.draw();
+    // sheep
+    game.data.objects.sheep.draw();
 }

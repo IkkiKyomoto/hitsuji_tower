@@ -6,15 +6,21 @@ class MapData{
         this.map = new Array(this.height);
 
         this.startPos = [1, 1]; // start地点
+        this.goalPos = [1, 1]; // start地点
         for(let i=0; i<this.height; i++){
             this.map[i] = new Array(this.width)
             for(let j=0; j<this.width; j++){
                 switch(this.ids[i][j]){
                     case "S":
                         this.startPos = [j,i];
+                        this.map[i][j] = new MapAir(j,i);
+                        break;
+                    case "G":
+                        this.goalPos = [j,i];
+                        this.map[i][j] = new MapAir(j,i);
+                        break;
                     case "0":
                     case "N":
-                    case "G":
                         this.map[i][j] = new MapAir(j,i);
                         break;
                     case "1":

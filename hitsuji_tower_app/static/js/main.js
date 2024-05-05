@@ -8,7 +8,8 @@ game.config = {
         result: "結果"
     },
     tileSize: 50, // 各マスの大きさ(px)
-    playerSize:30 // プレイヤーの大きさ(px)
+    playerSize:30, // プレイヤーの大きさ(px)
+    sheepSize:50 // プレイヤーの大きさ(px)
 
 };
 
