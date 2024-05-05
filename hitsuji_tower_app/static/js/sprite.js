@@ -76,7 +76,7 @@ class Player extends Sprite{
     move(){
         // 横移動
         // 加速度
-        this.dvx=0; this.dvy=+0.01; // 加速度初期化
+        this.dvx=0; this.dvy=+0.015; // 加速度初期化
         let moveFlg = false;
         if(game.data.inputKey.has("ArrowRight")){
             // 右移動
@@ -109,22 +109,40 @@ class Player extends Sprite{
         }
 
         // 移動 (壁にぶつかるなら移動しない)
-        if(game.data.map.ids[Math.floor(this.mapY)][Math.floor(this.mapX+this.vx)]!=="1" && game.data.map.ids[Math.floor(this.mapY)][Math.floor(this.mapX+this.vx+this.width/game.config.tileSize)]!=="1"){
+        if(game.data.map.ids[Math.ceil(this.mapY)][Math.floor(this.mapX+this.vx)]=="1" || game.data.map.ids[Math.ceil(this.mapY-this.height/game.config.tileSize+0.01)][Math.floor(this.mapX+this.vx)]=="1"){// game.data.map.ids[Math.ceil(this.mapY)][Math.floor(this.mapX+this.vx+this.width/game.config.tileSize)]!=="1"){
+            // 左に壁
+            this.vx = 0;
+            this.mapX = Math.floor(this.mapX+this.vx);
+        }else if(game.data.map.ids[Math.ceil(this.mapY)][Math.floor(this.mapX+this.vx+this.width/game.config.tileSize-0.01)]=="1" || game.data.map.ids[Math.ceil(this.mapY-this.height/game.config.tileSize+0.01)][Math.floor(this.mapX+this.vx+this.width/game.config.tileSize-0.01)]=="1"){
+            // 右に壁
+            this.vx = 0;
+            this.mapX = Math.floor(this.mapX+this.vx)+1-this.width/game.config.tileSize;
+        }else{
             this.mapX += this.vx;
         }
         
         // 縦移動
         if(game.data.inputKey.has("ArrowUp")){
             // 上移動
-            if(game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX)]=="1" || game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX+this.width/game.config.tileSize)]=="1"){
-                this.vy = -0.3;
+            if(game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX)]=="1" || game.data.map.ids[Math.ceil(this.mapY+0.1)][Math.floor(this.mapX+this.width/game.config.tileSize-0.01)]=="1"){
+                this.vy = -0.4;
             }
         }
         this.vy += this.dvy; // 重力
-        if(0.05<this.vy){
-            this.vy = 0.1;
+        if(0.3<this.vy){
+            this.vy = 0.3;
         }
-        if(game.data.map.ids[Math.ceil(this.mapY+this.vy)][Math.floor(this.mapX+this.vx)]!=="1" && game.data.map.ids[Math.ceil(this.mapY+this.vy)][Math.floor(this.mapX+this.width/game.config.tileSize)]!=="1"){
+
+        // 移動
+        if(game.data.map.ids[Math.ceil(this.mapY+this.vy)][Math.floor(this.mapX)]=="1" || game.data.map.ids[Math.ceil(this.mapY+this.vy)][Math.floor(this.mapX+this.width/game.config.tileSize-0.01)]=="1"){
+            // 下に壁
+            this.vy = 0;
+            this.mapY = Math.ceil(this.mapY+this.vy);
+        }else if(game.data.map.ids[Math.ceil(this.mapY+this.vy-this.height/game.config.tileSize+0.01)][Math.floor(this.mapX)]=="1" || game.data.map.ids[Math.ceil(this.mapY+this.vy-this.height/game.config.tileSize+0.01)][Math.floor(this.mapX+this.width/game.config.tileSize-0.01)]=="1"){
+            // 上に壁
+            this.vy = 0;
+            this.mapY = Math.ceil(this.mapY+this.vy-this.height/game.config.tileSize+0.01)-1+this.height/game.config.tileSize;          
+        }else{
             this.mapY += this.vy;
         }
     }
