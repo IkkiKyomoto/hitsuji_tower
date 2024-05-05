@@ -13,12 +13,20 @@
             width: 720px;
             margin: 100px auto;
         }
+        .control{
+          width: 720px;
+          color: #ffff;
+          margin: 100px auto;
+        }
     </style>
   </head>
   <body>
     {% block content %}
     <div id="canvas_wrapper">
       <canvas id="gamecanvas" width="720" height="480"></canvas>
+    </div>
+    <div class="control">
+      <p>←：左移動　/　↑：ジャンプ　/　→：右移動</p>
     </div>
     <!-- Your HTML content goes here -->
     {% endblock %}
