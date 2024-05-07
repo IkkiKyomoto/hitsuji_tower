@@ -13,6 +13,11 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 
+env = environ.Env(
+    # 初期値を設定
+    DEBUG=(bool, False)
+)
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-m=2vpphwm*&$$yhtc4l&re-7efs_5!4l!9+=lau278mb+byd)6"
+#SECRET_KEY = "django-insecure-m=2vpphwm*&$$yhtc4l&re-7efs_5!4l!9+=lau278mb+byd)6"
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -113,9 +118,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ja-jp"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = "UTC+9"
 
 USE_I18N = True
 
@@ -127,6 +132,7 @@ USE_TZ = True
 
 STATIC_URL = "static/"
 
+STATIC_ROOT = env("STATIC_ROOT")
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
