@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import environ
 import os
 
 env = environ.Env(
@@ -31,7 +32,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["hitsuji-422403.an.r.appspot.com"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -120,7 +121,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "ja-jp"
 
-TIME_ZONE = "UTC+9"
+TIME_ZONE = "UTC"
 
 USE_I18N = True
 
